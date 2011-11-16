@@ -159,11 +159,15 @@ public class DocumentViewService {
      */
     public File convert(File sourceFile, String sourceContentType) throws Exception {
         File pdfFile = convertToPDF(sourceFile, sourceContentType);
-        try {
-            return pdf2swfConverterService.convert(pdfFile);
-        } finally {
-            FileUtils.deleteQuietly(pdfFile);
+        if (pdfFile != null) {
+            try {
+                return pdf2swfConverterService.convert(pdfFile);
+            } finally {
+                FileUtils.deleteQuietly(pdfFile);
+            }
         }
+        
+        return null;
     }
 
     /**

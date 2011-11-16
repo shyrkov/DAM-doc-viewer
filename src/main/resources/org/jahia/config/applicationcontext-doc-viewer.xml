@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+    <bean id="DocumentViewService" class="org.jahia.modules.docviewer.DocumentViewService">
+        <!-- set this to true to enable the service -->
+        <property name="enabled" value="true"/>
+        <property name="pdf2swfConverterService" ref="PDF2SWFConverterService"/>
+        <property name="pdf2imageConverterService" ref="ICEpdfPDF2ImageConverterService"/>
+        <property name="documentConverterService" ref="DocumentConverterService"/>
+        <property name="supportedDocumentFormats">
+            <set><!-- see JCRContentUtils bean definition in applicationcontext-basejahiaconfig.xml for mime types -->
+                <value>pdf</value>
+                <value>word</value>
+                <value>rtf</value>
+                <value>excel</value>
+                <value>powerpoint</value>
+                <value>openoffice</value>
+            </set>
+        </property>
+    </bean>
+    
+    <bean id="PDF2SWFConverterService" class="org.jahia.modules.docviewer.PDF2SWFConverterService">
+        <!-- set this to true to enable the service -->
+        <property name="enabled" value="true"/>
+        <property name="executablePath" value="w:/tools/swftools/pdf2swf.exe"/>
+        <property name="parameters" value="-f -T 9 -t -s storeallcharacters"/>
+    </bean>
+
+    <bean id="ICEpdfPDF2ImageConverterService" class="org.jahia.modules.docviewer.ICEpdfPDF2ImageConverterService"/>
+    <bean id="PDFBoxPDF2ImageConverterService" class="org.jahia.modules.docviewer.PDFBoxPDF2ImageConverterService"/>
+</beans>

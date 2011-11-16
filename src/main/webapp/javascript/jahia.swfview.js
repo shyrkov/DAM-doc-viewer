@@ -12,7 +12,7 @@ $(document).ready(function() {
             	src: (typeof contextJsParameters != 'undefined' && typeof contextJsParameters.contextPath != 'undefined' ? contextJsParameters.contextPath : '') + '/modules/dam-doc-viewer/javascript/flexpaper/FlexPaperViewer.swf',
             	version: [10, 0]
             }, {
-	            SwfFile : escape(el.rel),
+	            SwfFile : el.rel,
 	            Scale : 0.6, 
 	            ZoomTransition : 'easeOut',
 	            ZoomTime : 0.5,

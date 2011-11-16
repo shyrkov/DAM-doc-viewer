@@ -9,7 +9,7 @@
 $(document).ready(function() {
     jQuery.each($("a.jahia-doc-viewer"), function(index, el) { 
         $(el).flashembed({
-            	src: (typeof contextJsParameters != 'undefined' && typeof contextJsParameters.contextPath != 'undefined' ? contextJsParameters.contextPath : '') + '/modules/doc-viewer/javascript/flexpaper/FlexPaperViewer.swf',
+            	src: (typeof contextJsParameters != 'undefined' && typeof contextJsParameters.contextPath != 'undefined' ? contextJsParameters.contextPath : '') + '/modules/dam-doc-viewer/javascript/flexpaper/FlexPaperViewer.swf',
             	version: [10, 0]
             }, {
 	            SwfFile : escape(el.rel),

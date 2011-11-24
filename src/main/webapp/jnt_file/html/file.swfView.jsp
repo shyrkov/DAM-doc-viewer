@@ -10,7 +10,7 @@
     (<fmt:message key="jnt_swfDocumentView.noPreviewInEditMode"/>)
 </c:if>
 <c:if test="${!renderContext.editMode}">
-    <c:url var="swfUrl" value="${docviewer:getViewUrl(currentNode, true)}"/>
+    <c:url var="swfUrl" value="${docviewer:getViewUrl(currentNode, true)}" context="/"/>
     <c:if test="${not empty swfUrl}">
         <a class="jahia-doc-viewer" rel="${swfUrl}" style="width:640px; height:480px; display:block"></a>
         <template:addResources type="javascript" resources="jquery.min.js,flexpaper/flexpaper_flash.min.js,jahia.swfview.js" />

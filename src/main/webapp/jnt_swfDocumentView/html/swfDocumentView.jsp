@@ -14,7 +14,7 @@
 <jcr:nodeProperty name="j:node" node="${currentNode}" var="docProperty"/>
 <c:set var="doc" value="${not empty docProperty ? docProperty.node : null}"/>
 <c:if test="${not empty doc && docviewer:isViewable(doc)}">
-    <c:url var="swfUrl" value="${docviewer:getViewUrl(doc, true)}"/>
+    <c:url var="swfUrl" value="${docviewer:getViewUrl(doc, true)}" context="/"/>
     <c:if test="${not empty swfUrl}">
         <template:addResources type="javascript" resources="jquery.min.js,flexpaper/flexpaper_flash.min.js,jahia.swfview.js"/>
         <jcr:nodeProperty name="j:width" node="${currentNode}" var="width"/>

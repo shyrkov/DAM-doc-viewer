@@ -23,7 +23,9 @@ and run on a production instance of Jahia xCM.
 
 Requirements
 ------------
-Module is targeted to be deployed to Jahia xCM version 6.5.1.1 or later.
+Module is targeted to be deployed to Jahia xCM version 6.6.0.0 or later.
+
+It also has dam-doc-rules module as a dependency.
 
 For document conversion operations and document preview as an SWF it requires an
 OpenOffice or LibreOffice + pdf2swf (SWFTools) to be installed and configured.

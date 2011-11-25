@@ -15,6 +15,7 @@ global Logger logger
 global DocumentViewRuleService documentViewService
 ###############################################################################
 
+/*
 rule "Create SWF view of the document"
     when
 		A file content has been modified
@@ -24,7 +25,6 @@ rule "Create SWF view of the document"
         Create a document thumbnail named "thumbnail" of size 150
 end
 
-/*
 rule "Auto-convert viewable document to SWF file"
     when
 		A file content has been modified

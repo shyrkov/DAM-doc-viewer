@@ -43,7 +43,7 @@
     <parent>
         <artifactId>jahia-modules</artifactId>
         <groupId>org.jahia.modules</groupId>
-        <version>6.5.1.1</version>
+        <version>6.6.0.0-SNAPSHOT</version>
     </parent>
     <groupId>org.jahia.modules</groupId>
     <artifactId>dam-doc-viewer</artifactId>
@@ -100,6 +100,12 @@
             <artifactId>thumbnailator</artifactId>
             <version>0.3.10</version>
         </dependency>
+        <dependency>
+            <groupId>org.jahia.modules</groupId>
+            <artifactId>dam-doc-rules-service</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>provided</scope><!-- dam-doc-rules module have to be deployed -->
+        </dependency>
     </dependencies>
     
     <build>
@@ -129,7 +135,7 @@
                             <Specification-Vendor />
                             <package-name>${project.name}</package-name>
                             <root-folder>${project.artifactId}</root-folder>
-                            <depends>assets</depends>
+                            <depends>assets,dam-doc-rules</depends>
                             <module-type>module</module-type>
                         </manifestEntries>
                     </archive>

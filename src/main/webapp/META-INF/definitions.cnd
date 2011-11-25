@@ -11,3 +11,14 @@
 
 [jmix:swfDocumentView] mixin
  + swfView (nt:resource)
+
+[jmix:documentRuleCreateSwfView] > jmix:applyDocumentRules mixin
+ extends = jnt:folder
+ itemtype = rules
+ - j:documentRuleCreateSwfViewAsBackgroundJob (boolean) = false indexed=no
+
+[jmix:documentRuleCreateThumbnail] > jmix:applyDocumentRules mixin
+ extends = jnt:folder
+ itemtype = rules
+ - j:documentRuleCreateThumbnailAsBackgroundJob (boolean) = false indexed=no
+ - j:documentRuleThumbnailSize (long) = '150' mandatory indexed=no

@@ -15,4 +15,10 @@
         </property>
     </bean>
 
+    <bean id="documentRuleCreateSwfView" class="org.jahia.modules.docviewer.rules.CreateSwfViewDocumentRule">
+        <property name="documentViewService" ref="DocumentViewService"/>
+    </bean>
+    
+    <bean id="documentRuleCreateThumbnail" class="org.jahia.modules.docviewer.rules.CreateThumbnailDocumentRule" parent="documentRuleCreateSwfView"/>
+    
 </beans>

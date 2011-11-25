@@ -48,7 +48,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Set;
 import java.util.regex.Pattern;
 
 import javax.imageio.ImageIO;
@@ -329,47 +328,6 @@ public class DocumentViewService {
         }
     }
 
-    protected JCRNodeWrapper storeThumbnailNode(JCRNodeWrapper fileNode, BufferedImage thumbnail,
-            String thumbnailName) throws RepositoryException, IOException {
-        JCRNodeWrapper node = null;
-
-        fileNode.getSession().checkout(fileNode);
-
-        try {
-            node = fileNode.getNode(thumbnailName);
-        } catch (PathNotFoundException e) {
-            node = fileNode.addNode(thumbnailName, Constants.JAHIANT_RESOURCE);
-            node.addMixin(Constants.JAHIAMIX_IMAGE);
-        }
-
-        if (node.hasProperty(Constants.JCR_DATA)) {
-            node.getProperty(Constants.JCR_DATA).remove();
-        }
-
-        Binary b = null;
-        ByteArrayOutputStream os = null;
-        try {
-            os = new ByteArrayOutputStream(16 * 1024);
-            ImageIO.write(thumbnail, thumbnailImageFormat, os);
-            b = new BinaryImpl(os.toByteArray());
-            node.setProperty(Constants.JCR_DATA, b);
-        } finally {
-            os = null;
-            if (b != null) {
-                b.dispose();
-            }
-        }
-        node.setProperty("j:width", thumbnail.getWidth());
-        node.setProperty("j:height", thumbnail.getHeight());
-        node.setProperty(Constants.JCR_MIMETYPE, "png".equals(thumbnailImageFormat) ? "image/png"
-                : "image/jpeg");
-        Calendar lastModified = Calendar.getInstance();
-        node.setProperty(Constants.JCR_LASTMODIFIED, lastModified);
-        fileNode.setProperty(Constants.JCR_LASTMODIFIED, lastModified);
-
-        return node;
-    }
-
     /**
      * Creates the SWF view for the specified PDF file node.
      * 
@@ -480,6 +438,10 @@ public class DocumentViewService {
         return image;
     }
 
+    public String[] getSupportedDocumentFormats() {
+        return supportedDocumentFormats;
+    }
+
     /**
      * Returns <code>true</code> if the conversion service is enabled; <code>false</code> otherwise.
      * 
@@ -511,14 +473,54 @@ public class DocumentViewService {
         this.pdf2swfConverterService = pdf2swfConverterService;
     }
 
-    public void setSupportedDocumentFormats(Set<String> supportedDocumentFormats) {
+    public void setSupportedDocumentFormats(String[] supportedDocumentFormats) {
         this.supportedDocumentFormats = supportedDocumentFormats != null
-                && !supportedDocumentFormats.isEmpty() ? supportedDocumentFormats
-                .toArray(new String[] {}) : null;
+                && supportedDocumentFormats.length > 0 ? supportedDocumentFormats : null;
     }
 
     public void setThumbnailImageFormat(String thumbnailImageFormat) {
         this.thumbnailImageFormat = thumbnailImageFormat;
+    }
+
+    protected JCRNodeWrapper storeThumbnailNode(JCRNodeWrapper fileNode, BufferedImage thumbnail,
+            String thumbnailName) throws RepositoryException, IOException {
+        JCRNodeWrapper node = null;
+
+        fileNode.getSession().checkout(fileNode);
+
+        try {
+            node = fileNode.getNode(thumbnailName);
+        } catch (PathNotFoundException e) {
+            node = fileNode.addNode(thumbnailName, Constants.JAHIANT_RESOURCE);
+            node.addMixin(Constants.JAHIAMIX_IMAGE);
+        }
+
+        if (node.hasProperty(Constants.JCR_DATA)) {
+            node.getProperty(Constants.JCR_DATA).remove();
+        }
+
+        Binary b = null;
+        ByteArrayOutputStream os = null;
+        try {
+            os = new ByteArrayOutputStream(16 * 1024);
+            ImageIO.write(thumbnail, thumbnailImageFormat, os);
+            b = new BinaryImpl(os.toByteArray());
+            node.setProperty(Constants.JCR_DATA, b);
+        } finally {
+            os = null;
+            if (b != null) {
+                b.dispose();
+            }
+        }
+        node.setProperty("j:width", thumbnail.getWidth());
+        node.setProperty("j:height", thumbnail.getHeight());
+        node.setProperty(Constants.JCR_MIMETYPE, "png".equals(thumbnailImageFormat) ? "image/png"
+                : "image/jpeg");
+        Calendar lastModified = Calendar.getInstance();
+        node.setProperty(Constants.JCR_LASTMODIFIED, lastModified);
+        fileNode.setProperty(Constants.JCR_LASTMODIFIED, lastModified);
+
+        return node;
     }
 
 }

@@ -24,7 +24,7 @@
     <bean id="PDF2SWFConverterService" class="org.jahia.modules.docviewer.PDF2SWFConverterService">
         <!-- set this to true to enable the service -->
         <property name="enabled" value="true"/>
-        <property name="executablePath" value="w:/tools/swftools/pdf2swf.exe"/>
+        <property name="executablePath" value="${documentViewer.pdf2swf:/usr/local/bin/pdf2swf}"/>
         <property name="parameters" value="-f -T 9 -t -s storeallcharacters"/>
     </bean>
 
